@@ -5,17 +5,17 @@ using UnityEngine.UI;
 
 public class ball : MonoBehaviour
 {
-    public float xSpeed = 0; //Horizontal speed
-    public float ySpeed = 0; //vertical speed
+    public float xSpeed = 0; //Horizontal speed (variable)
+    public float ySpeed = 0; //vertical speed (variable)
 
     //Border variable
-    private float xBorder = 7.5f;
-    private float yBorder = 4.5f;
+    private float xBorder = 7.5f; //variable for horizontal border
+    private float yBorder = 4.5f; //variable for vertical border
   
 
     //variable for move state
-    public bool xMove = true;
-    public bool yMove = true;
+    public bool xMove = true; //variable for horizontal state
+    public bool yMove = true; //variable for vertical state
 
     //score variables
     int playerOneScore;
@@ -41,15 +41,15 @@ public class ball : MonoBehaviour
         }
         else
         {
-            transform.position = new Vector2(transform.position.x - xSpeed, transform.position.y); // left
+            transform.position = new Vector2(transform.position.x - xSpeed, transform.position.y); //move left
         }
 
-        if (transform.position.x >= xBorder) 
+        if (transform.position.x >= xBorder) //Score for P2 & ricochet from border
         {
             xMove = false;
             playerOneScore++;
         }
-        if (transform.position.x <= -xBorder)
+        if (transform.position.x <= -xBorder) //score for P1
         {
             xMove = true;
             playerTwoScore++;
@@ -59,11 +59,11 @@ public class ball : MonoBehaviour
         //vertical movement
         if (yMove == true)
         {
-             transform.position = new Vector2(transform.position.x, transform.position.y + ySpeed); //up
+             transform.position = new Vector2(transform.position.x, transform.position.y + ySpeed); //up movement
         }
         else
         {
-            transform.position = new Vector2(transform.position.x, transform.position.y - ySpeed); // down
+            transform.position = new Vector2(transform.position.x, transform.position.y - ySpeed); // down movement
         }
 
     
@@ -78,9 +78,11 @@ public class ball : MonoBehaviour
 
         scoreTextP1.text = playerOneScore.ToString();
         scoreTextP2.text = playerTwoScore.ToString();
+
+        
     }
 
-    void OnCollisionEnter2D(Collision2D collision) //when a collision happens)
+    void OnCollisionEnter2D(Collision2D collision) //when a collision happens; makes the ball bounce from the paddles
     {
         Debug.Log("hit");
         if (collision.collider.CompareTag("Player"))
@@ -89,7 +91,7 @@ public class ball : MonoBehaviour
             {
                 xMove = false;
             }
-            else
+            else if (xMove == false)
             {
                 xMove = true;
             }
